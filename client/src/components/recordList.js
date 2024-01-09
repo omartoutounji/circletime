@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 const Record = (props) => (
  <tr>
    <td>{props.record.name}</td>
-   <td>{props.record.position}</td>
-   <td>{props.record.level}</td>
+   <td>{props.record.addr}</td>
+   <td>{props.record.url}</td>
+   <td>{props.record.tel}</td>
    <td>
      <Link className="btn btn-link" to={`/edit/${props.record._id}`}>Edit</Link> |
      <button className="btn btn-link"
@@ -22,7 +23,7 @@ export default function RecordList() {
   // This method fetches the records from the database.
  useEffect(() => {
    async function getRecords() {
-     const response = await fetch(`https://circletime.onrender.com:1000/record/`);
+     const response = await fetch(`https://circletime.onrender.com/record/`);
       if (!response.ok) {
        const message = `An error occurred: ${response.statusText}`;
        window.alert(message);
@@ -36,7 +37,7 @@ export default function RecordList() {
  }, [records.length]);
   // This method will delete a record
  async function deleteRecord(id) {
-   await fetch(`https://circletime.onrender.com:1000/${id}`, {
+   await fetch(`https://circletime.onrender.com/${id}`, {
      method: "DELETE"
    });
     const newRecords = records.filter((el) => el._id !== id);
@@ -62,9 +63,9 @@ export default function RecordList() {
        <thead>
          <tr>
            <th>Name</th>
-           <th>Position</th>
-           <th>Level</th>
-           <th>Action</th>
+           <th>Address</th>
+           <th>Website</th>
+           <th>Number</th>
          </tr>
        </thead>
        <tbody>{recordList()}</tbody>
