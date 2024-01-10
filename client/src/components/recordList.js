@@ -63,10 +63,10 @@ export default function RecordList() {
           navigator.geolocation.getCurrentPosition(resolve, reject);
         });
     
-        // setPosition({
-        //     latitude: pos.coords.latitude,
-        //     longitude: pos.coords.longitude,
-        // });
+        setPosition({
+            latitude: pos.coords.latitude,
+            longitude: pos.coords.longitude,
+        });
     };
    async function getRecords() {
      const boundingBox = getBoundsOfDistance(position, 50000);
