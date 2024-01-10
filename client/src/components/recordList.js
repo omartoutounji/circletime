@@ -55,7 +55,7 @@ const Record = (props) => (
 );
 export default function RecordList() {
  const [records, setRecords] = useState([]);
- const [position, setPosition] = useState({ latitude: 42.9092147, longitude: -78.9726737 });
+ const [position, setPosition] = useState({ latitude: 45.178588, longitude: -77.295185 });
   // This method fetches the records from the database.
  useEffect(() => {
     const getCoords = async () => {
@@ -63,10 +63,10 @@ export default function RecordList() {
           navigator.geolocation.getCurrentPosition(resolve, reject);
         });
     
-        setPosition({
-            latitude: pos.coords.latitude,
-            longitude: pos.coords.longitude,
-        });
+        // setPosition({
+        //     latitude: pos.coords.latitude,
+        //     longitude: pos.coords.longitude,
+        // });
     };
    async function getRecords() {
      const boundingBox = getBoundsOfDistance(position, 50000);
@@ -84,7 +84,7 @@ export default function RecordList() {
     console.log(position)
     console.log(getBoundsOfDistance(position, 10000))
     return;
- }, [records.length]);
+ }, [records.length, position]);
   // This method will delete a record
  async function deleteRecord(id) {
    await fetch(`https://circletime.onrender.com/${id}`, {
