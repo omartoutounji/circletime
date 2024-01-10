@@ -14,12 +14,13 @@ const ObjectId = require("mongodb").ObjectId;
  
 // This section will help you get a list of all the records.
 // This section will help you get a list of all the records.
-recordRoutes.route("/record").get(async function (req, response) {
+recordRoutes.route("/record/:minLat/:maxLat/:minLng/:maxLng").get(async function (req, response) {
     let db_connect = dbo.getDb();
-  
+    let boundingBox = {minLat: parseFloat(req.params.minLat), maxLat: parseFloat(req.params.maxLat), minLng: parseFloat(req.params.minLng), maxLng: parseFloat(req.params.maxLng)}
+    console.log(boundingBox)
     db_connect
       .collection("earlyons")
-      .find({})
+      .find({lat: {$gt: boundingBox.minLat, $lt: boundingBox.maxLat}, lng: {$gt: boundingBox.minLng, $lt: boundingBox.maxLng}})
       .toArray()
       .then((data) => {
         console.log(data);

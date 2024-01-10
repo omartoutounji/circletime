@@ -1,10 +1,13 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+var corsOptions = null
 
 // middleware
-const corsOptions = {
-    origin: "https://circletime-app.onrender.com", // frontend URI (ReactJS)
+if (process.env.NODE_ENV == 'production') {
+    corsOptions = {
+        origin: "https://circletime-app.onrender.com", // frontend URI (ReactJS)
+    }
 }
 
 require("dotenv").config({ path: "./config.env" });
