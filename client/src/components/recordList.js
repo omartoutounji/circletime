@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import DirectionsIcon from '@mui/icons-material/Directions';
 import Grid from '@mui/material/Unstable_Grid2';
+import Link from '@mui/material/Link';
 import CallIcon from '@mui/icons-material/Call';
 import Typography from '@mui/material/Typography';
 import LinkIcon from '@mui/icons-material/Link';
@@ -17,7 +18,7 @@ const Record = (props) => (
       {props.record.name}
     </Typography>
     <Typography sx={{ mb: 1.5 }} color="text.secondary">
-    {props.distance/1000} kms away from you
+    {Math.round((props.distance/1000) * 10) / 10} kms away from you
     </Typography>
     <Typography variant="body2">
     <Button href={props.record.url} variant="outlined" startIcon={<LinkIcon />}>
@@ -33,6 +34,7 @@ const Record = (props) => (
   <Button href={"https://www.google.com/maps/search/?api=1&query=" + props.record.lat + "," + props.record.lng} variant="contained" endIcon={<DirectionsIcon />}>
   Directions
 </Button>
+<Link href={`/edit/${props.record._id}`} color="inherit">Something wrong?</Link>
   </CardActions>
   </Card>
 //  <tr>
@@ -97,7 +99,7 @@ export default function RecordList() {
  function recordList() {
    return records.sort((a, b) => getDistance(position, {latitude: a.lat, longitude: a.lng}) > getDistance(position, {latitude: b.lat, longitude: b.lng}) ? 1 : -1).map((record) => {
      return (
-      <Grid xs={2} sm={4} md={4}>
+      <Grid xs={2} sm={4} md={4} key={record._id}>
       <Box
       component="section"
       sx={{mx: '2px', transform: 'scale(0.8)'}}

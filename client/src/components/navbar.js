@@ -11,7 +11,10 @@ export default function Navbar() {
        <NavLink className="navbar-brand" to="/">
        <h1>CircleTime</h1>
        </NavLink>
-       <button
+       <NavLink className="nav-link" to="/create">
+               Can't find your EarlyON?
+      </NavLink>
+       {/* <button
          className="navbar-toggler"
          type="button"
          data-toggle="collapse"
@@ -25,12 +28,12 @@ export default function Navbar() {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
          <ul className="navbar-nav ml-auto">
            <li className="nav-item">
-             {/* <NavLink className="nav-link" to="/create">
+             <NavLink className="nav-link" to="/create">
                Can't find your EarlyON?
-             </NavLink> */}
+             </NavLink>
            </li>
          </ul>
-       </div>
+       </div> */}
      </nav>
    </div>
  );

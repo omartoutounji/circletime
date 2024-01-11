@@ -3,8 +3,11 @@ import { useNavigate } from "react-router";
 export default function Create() {
  const [form, setForm] = useState({
    name: "",
-   position: "",
-   level: "",
+   addr: "",
+   tel: "",
+   lat: "",
+   lng: "",
+   url: "",
  });
  const navigate = useNavigate();
   // These methods will update the state properties.
@@ -35,7 +38,7 @@ export default function Create() {
   // This following section will display the form that takes the input from the user.
  return (
    <div>
-     <h3>Create New Record</h3>
+     <h3>Add EarlyON</h3>
      <form onSubmit={onSubmit}>
        <div className="form-group">
          <label htmlFor="name">Name</label>
@@ -48,16 +51,56 @@ export default function Create() {
          />
        </div>
        <div className="form-group">
-         <label htmlFor="position">Position</label>
+         <label htmlFor="address">Address</label>
          <input
            type="text"
            className="form-control"
-           id="position"
-           value={form.position}
-           onChange={(e) => updateForm({ position: e.target.value })}
+           id="address"
+           value={form.addr}
+           onChange={(e) => updateForm({ addr: e.target.value })}
          />
        </div>
        <div className="form-group">
+         <label htmlFor="number">Number</label>
+         <input
+           type="text"
+           className="form-control"
+           id="number"
+           value={form.tel}
+           onChange={(e) => updateForm({ tel: e.target.value })}
+         />
+       </div>
+       <div className="form-group">
+         <label htmlFor="latitude">Latitude</label>
+         <input
+           type="text"
+           className="form-control"
+           id="latitude"
+           value={form.lat}
+           onChange={(e) => updateForm({ lat: e.target.value })}
+         />
+       </div>
+       <div className="form-group">
+         <label htmlFor="longtitude">Longitude</label>
+         <input
+           type="text"
+           className="form-control"
+           id="longtitude"
+           value={form.lng}
+           onChange={(e) => updateForm({ lng: e.target.value })}
+         />
+       </div>
+       <div className="form-group">
+         <label htmlFor="url">Website URL</label>
+         <input
+           type="text"
+           className="form-control"
+           id="url"
+           value={form.url}
+           onChange={(e) => updateForm({ url: e.target.value })}
+         />
+       </div>
+       {/* <div className="form-group">
          <div className="form-check form-check-inline">
            <input
              className="form-check-input"
@@ -94,11 +137,11 @@ export default function Create() {
            />
            <label htmlFor="positionSenior" className="form-check-label">Senior</label>
          </div>
-       </div>
+       </div> */}
        <div className="form-group">
          <input
            type="submit"
-           value="Create person"
+           value="Add EarlyON"
            className="btn btn-primary"
          />
        </div>
