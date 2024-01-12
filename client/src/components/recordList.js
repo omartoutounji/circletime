@@ -6,10 +6,10 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import DirectionsIcon from '@mui/icons-material/Directions';
 import Grid from '@mui/material/Unstable_Grid2';
-import Link from '@mui/material/Link';
 import CallIcon from '@mui/icons-material/Call';
 import Typography from '@mui/material/Typography';
 import LinkIcon from '@mui/icons-material/Link';
+import { Link } from "react-router-dom";
 import { getDistance, getBoundsOfDistance } from 'geolib';
 const Record = (props) => (
   <Card sx={{ maxWidth: 345}}>
@@ -34,7 +34,7 @@ const Record = (props) => (
   <Button href={"https://www.google.com/maps/search/?api=1&query=" + props.record.lat + "," + props.record.lng} variant="contained" endIcon={<DirectionsIcon />}>
   Directions
 </Button>
-<Link href={`/edit/${props.record._id}`} color="inherit">Something wrong?</Link>
+<Link className="btn btn-link" to={`/edit/${props.record._id}`}>Edit</Link>
   </CardActions>
   </Card>
 //  <tr>
