@@ -57,7 +57,7 @@ const Record = (props) => (
 );
 export default function RecordList() {
  const [records, setRecords] = useState([]);
- const [position, setPosition] = useState({ latitude: 45.178588, longitude: -77.295185 });
+ const [position, setPosition] = useState({latitude: NaN, longitude: NaN});
   // This method fetches the records from the database.
  useEffect(() => {
     const getCoords = async () => {
@@ -76,17 +76,16 @@ export default function RecordList() {
       if (!response.ok) {
        const message = `An error occurred: ${response.statusText}`;
        window.alert(message);
-       return;
      }
      const records = await response.json();
      setRecords(records);
    }
     getCoords();
     getRecords();
+    console.log(records)
     console.log(position)
     console.log(getBoundsOfDistance(position, 10000))
-    return;
- }, [records.length, position]);
+ }, [position.latitude]);
   // This method will delete a record
  async function deleteRecord(id) {
    await fetch(`https://circletime.onrender.com/${id}`, {
@@ -97,30 +96,49 @@ export default function RecordList() {
  }
   // This method will sort the records by distance and map out the records on the table
  function recordList() {
-   return records.sort((a, b) => getDistance(position, {latitude: a.lat, longitude: a.lng}) > getDistance(position, {latitude: b.lat, longitude: b.lng}) ? 1 : -1).map((record) => {
-     return (
-      <Grid xs={2} sm={4} md={4} key={record._id}>
+    return records.sort((a, b) => getDistance(position, {latitude: a.lat, longitude: a.lng}) > getDistance(position, {latitude: b.lat, longitude: b.lng}) ? 1 : -1).map((record) => {
+      return (
+       <Grid xs={2} sm={4} md={4} key={record._id}>
+       <Box
+       component="section"
+       sx={{mx: '2px', transform: 'scale(0.8)'}}
+     >
+       <Record
+          record={record}
+          distance={getDistance(position, {latitude: record.lat, longitude: record.lng})}
+          deleteRecord={() => deleteRecord(record._id)}
+          key={record._id}
+        />
+     </Box>
+     </Grid>
+      );
+    });
+  }
+
+  function loadingText() {
+    return (
+      <Grid xs={2} sm={4} md={4}>
       <Box
       component="section"
       sx={{mx: '2px', transform: 'scale(0.8)'}}
-    >
-      <Record
-         record={record}
-         distance={getDistance(position, {latitude: record.lat, longitude: record.lng})}
-         deleteRecord={() => deleteRecord(record._id)}
-         key={record._id}
-       />
+      >
+      <Card sx={{ maxWidth: 345}}>
+      <CardContent>
+        <Typography variant="h5" component="div">
+          Fetching your location...
+        </Typography>
+        </CardContent>
+      </Card>
     </Box>
     </Grid>
-     );
-   });
- }
+     ); 
+  }
   // This following section will display the table with the records of individuals.
  return (
    <div>
      <h3>EarlyONs near you</h3>
      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
-      {recordList()}
+      {isNaN(position.latitude) ? loadingText() : recordList()}
       </Grid>
    </div>
  );
